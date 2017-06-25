@@ -9,6 +9,10 @@ jobs:
       # - image: circleci/ruby:2.4-node-browsers
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-yarn-deps-{{ checksum "frontend/yarn.lock" }}
+            - v1-bundle-deps-{{ checksum "Gemfile.lock"}}
       - run:
           name: chrome-add-apt
           command: sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
@@ -27,6 +31,14 @@ jobs:
       - run:
           name: bundle
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - save_cache:
+          key: v1-yarn-deps-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - frontend/node_modules
+      - save_cache:
+          key: v1-bundle-deps-{{ checksum "Gemfile.lock"}}
+          paths:
+            - vendor/bundle
       - run:
           name: node-version
           command: node --version
