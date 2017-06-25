@@ -11,7 +11,7 @@ jobs:
           command: curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       - run:
           name: install-chrome
-          command: dpkg -i google-chrome.deb
+          command: sudo dpkg -i google-chrome.deb
       - run:
           name: bundle
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
