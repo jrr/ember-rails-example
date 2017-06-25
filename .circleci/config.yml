@@ -3,7 +3,8 @@ jobs:
   build:
     working_directory: ~/ember-rails-example
     docker:
-      - image: circleci/ruby:2.4-node-browsers
+      - image: circleci/ruby:2.4
+      # - image: circleci/ruby:2.4-node-browsers
     steps:
       - checkout
       - run:
@@ -12,6 +13,12 @@ jobs:
       - run:
           name: install-chrome
           command: sudo dpkg -i google-chrome.deb
+      - run:
+          name: get-node
+          command: curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+      - run:
+          name: install-node
+          command: sudo apt-get install -y nodejs
       - run:
           name: bundle
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
