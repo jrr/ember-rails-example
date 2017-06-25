@@ -4,6 +4,8 @@ jobs:
     working_directory: ~/ember-rails-example
     docker:
       - image: circleci/ruby:2.4
+      # Circle's ruby+node+browsers image almost works for us,
+      # but it has node 8, which ember doesn't support yet.
       # - image: circleci/ruby:2.4-node-browsers
     steps:
       - checkout
@@ -37,16 +39,3 @@ jobs:
       - run:
           name: test-ember
           command: bundle exec rake ember:test
-
-    # dependencies:
-    #   override:
-    #     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    #     - sudo dpkg -i google-chrome.deb
-    #     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-    #     - rm google-chrome.deb
-    #   pre:
-    #     - bundle exec rake ember:install
-    #   cache_directories:
-    #     - "vendor/bundle"
-    #     - "frontend/bower_components"
-    #     - "frontend/node_modules"
