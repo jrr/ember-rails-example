@@ -15,7 +15,7 @@ jobs:
           command: sudo apt-get update
       - run:
           name: chrome-install
-          command: sudo apt-get --only-upgrade install google-chrome-stable
+          command: sudo apt-get install google-chrome-stable
       - run:
           name: get-node
           command: curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
