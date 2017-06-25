@@ -6,7 +6,20 @@ jobs:
       - image: circleci/ruby:2.4-node-browsers
     steps:
       - checkout
-      - run: echo "hello world"
+      - run:
+          name: get-chrome
+          command: curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - run:
+          name: install-chrome
+          command: dpkg -i google-chrome.deb
+      - run:
+          name: bundle
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - run:
+          name: ember-deps
+          command: bundle exec rake ember:install
+
+
     # dependencies:
     #   override:
     #     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -14,7 +27,6 @@ jobs:
     #     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     #     - rm google-chrome.deb
     #   pre:
-    #     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
     #     - bundle exec rake ember:install
     #   cache_directories:
     #     - "vendor/bundle"
