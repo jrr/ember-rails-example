@@ -18,7 +18,12 @@ jobs:
       - run:
           name: ember-deps
           command: bundle exec rake ember:install
-
+      - run:
+          name: test
+          command: bundle exec rspec
+      - run:
+          name: test-ember
+          command: bundle exec rake ember:test
 
     # dependencies:
     #   override:
