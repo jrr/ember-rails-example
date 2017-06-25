@@ -11,6 +11,7 @@ dependencies:
     - rm google-chrome.deb
   pre:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - ember:install
   cache_directories:
     - "vendor/bundle"
     - "frontend/bower_components"
