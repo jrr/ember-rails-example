@@ -16,6 +16,9 @@ jobs:
           name: bundle
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
       - run:
+          name: node-version
+          command: node --version
+      - run:
           name: ember-deps
           command: bundle exec rake ember:install
       - run:
