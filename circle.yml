@@ -13,10 +13,10 @@ dependencies:
     - bundle exec rake ember:install
   cache_directories:
     - "vendor/bundle"
-    - "frontend/bower_components"
     - "frontend/node_modules"
 
 test:
   override:
-    - bundle exec rake spec
+    - bundle exec rails test
+    - bundle exec rspec
     - bundle exec rake ember:test
