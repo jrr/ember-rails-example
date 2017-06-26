@@ -1,12 +1,14 @@
 describe "basic feature test", :type => :feature do
-#   before :each do
-#     User.make(email: 'user@example.com', password: 'password')
-#   end
+  before :each do
+    Post.create(title: 'foo', body: 'bar baz')
+    Post.create(title: 'qwerty', body: 'uiop')
+  end
 
-  it "sees the ember welcome page" do
+  it "sees posts" do
     visit '/'
     # wait_for_ajax
-    expect(page).to have_content 'Congratulations'
+    expect(page).to have_content 'foo'
+    expect(page).to have_content 'qwerty'
   end
 end
 
